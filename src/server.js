@@ -3,7 +3,7 @@ import cors from 'cors';
 import 'dotenv/config';
 import { connectMongoDB } from './db/connectMongoDB.js';
 import { notFoundHandler } from './middleware/notFoundHandler.js';
-import { ErrorHandler } from './middleware/errorHandler.js';
+import { errorHandler  } from './middleware/errorHandler.js';
 import { logger } from './middleware/logger.js';
 import studentRoutes from './routes/notesRoutes.js';
 
@@ -12,12 +12,7 @@ const PORT = process.env.PORT ?? 3000;
 
 // Middleware
 app.use(logger);
-app.use(express.json(
-  {
-    type: ['application/json', 'application/vnd.api+json'],
-    limit: '100kb',
-   }
-)
+app.use(express.json()
 );
 app.use(cors());
 
@@ -28,7 +23,7 @@ app.use(studentRoutes);
 app.use(notFoundHandler);
 
 // Middleware для обробки помилок (останнє)
-app.use(ErrorHandler);
+app.use(errorHandler);
 
 await connectMongoDB();
 
