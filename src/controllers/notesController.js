@@ -7,7 +7,11 @@ export const getAllNotes = async (req, res) => {
   const noteQuery = Note.find();
 
   if (search) {
-    noteQuery.where("title").where("content").includes(search);
+    noteQuery.where({
+      "title": { $regex: search, $options: "i" },
+      "content": { $regex: search, $options: "i" }
+    }
+    );
   }
 
   if (tag) {
