@@ -20,7 +20,7 @@ export const createNoteSchema = {
 };
 
 const objectIdValidator = (value, helpers) => {
-  return isValidObjectId(value) ? helpers.message('Invalid id format') : value;
+  return isValidObjectId(value) ?  value :helpers.message('Invalid id format');
 };
 
 export const noteIdSchema = {
