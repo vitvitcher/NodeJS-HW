@@ -30,6 +30,8 @@ const noteSchema = new Schema(
 );
 
 noteSchema.index({
+  title: "text",
+  content: "text",
   tag:1
 });
 
