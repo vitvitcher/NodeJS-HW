@@ -6,12 +6,8 @@ export const getAllNotes = async (req, res) => {
   const skip = (page - 1) * perPage;
   const noteQuery = Note.find();
 
-  if (search) {
-    noteQuery.where({
-      "title": { $regex: search, $options: "i" },
-      "content": { $regex: search, $options: "i" }
-    }
-    );
+if (search) {
+    noteQuery.where({ $text: { $search: search } });
   }
 
   if (tag) {
